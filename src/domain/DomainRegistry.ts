@@ -9,22 +9,31 @@ import {InMemoryWorkoutRepository} from "./repository/InMemoryWorkoutRepository.
  *
  * This specific implementation uses a singleton for global config.
  */
-export class DomainRegistry {
+interface DomainRegistry {
+  getUserRepository(): UserRepository;
+
+  getWorkoutRepository(): WorkoutRepository;
+}
+
+/**
+ * Create another FirebaseDomainRegistry for production services
+ */
+export class TestDomainRegistry implements DomainRegistry {
 
   private static userRepositoryInstance: UserRepository;
   private static workoutRepositoryInstance: WorkoutRepository;
 
   getUserRepository(): UserRepository {
-    if (!DomainRegistry.userRepositoryInstance) {
-      DomainRegistry.userRepositoryInstance = new InMemoryUserRepository();
+    if (!TestDomainRegistry.userRepositoryInstance) {
+      TestDomainRegistry.userRepositoryInstance = new InMemoryUserRepository();
     }
-    return DomainRegistry.userRepositoryInstance;
+    return TestDomainRegistry.userRepositoryInstance;
   }
 
   getWorkoutRepository(): WorkoutRepository {
-    if (!DomainRegistry.workoutRepositoryInstance) {
-      DomainRegistry.workoutRepositoryInstance = new InMemoryWorkoutRepository();
+    if (!TestDomainRegistry.workoutRepositoryInstance) {
+      TestDomainRegistry.workoutRepositoryInstance = new InMemoryWorkoutRepository();
     }
-    return DomainRegistry.workoutRepositoryInstance;
+    return TestDomainRegistry.workoutRepositoryInstance;
   }
 }

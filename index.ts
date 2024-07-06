@@ -1,10 +1,10 @@
 // Example usage:
 import {nanoid} from "nanoid";
-import {DomainRegistry} from "./src/domain/DomainRegistry.ts";
+import {TestDomainRegistry} from "./src/domain/DomainRegistry.ts";
 import {UserImpl} from "./src/domain/model/User.ts";
 import {dummyMigrationScript, runMigrationIterable} from "./src/services/migration/migrate-data.ts";
 
-const registry = new DomainRegistry()
+const registry = new TestDomainRegistry()
 
 const userRepository = registry.getUserRepository()
 const workoutRepository = registry.getWorkoutRepository()

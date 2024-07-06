@@ -19,17 +19,11 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async saveUser(user: User): Promise<void> {
-    const newWorkout = user.provisionWorkout({
-      id: nanoid(),
-      date: new Date()
-    })
-
-    this.users.set(newWorkout.getId(), user)
-
+    this.users.set(nanoid(), user)
     return Promise.resolve();
   }
 
   saveUserSync(user: User): void {
-    this.saveUser(user)
+    this.users.set(nanoid(), user)
   }
 }
